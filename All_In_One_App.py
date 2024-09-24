@@ -410,7 +410,7 @@ if st.button('Recognize Entities'):
 correct_icd_codes_button, inject_atc_codes_button, deidentify_patients_button = st.columns(3)
 check_ddis_button, visualize_comorbidity_button, dose_checker_button = st.columns(3)
 correct_renal_dose_button, summarize_ehr_button, structure_ehr_button = st.columns(3)
-find_side_effects_button = st.button('Find Side Effects')
+find_side_effects_button = st.button('Find Side Effects (soon)')
 
 if correct_icd_codes_button.button('Correct ICD Codes'):
     icd10_data = load_icd10_data()
@@ -462,7 +462,7 @@ if summarize_ehr_button.button('Summarize EHR'):
     result = summarize_text(user_input)
     st.write(result)
 
-if structure_ehr_button.button('Structure EHR'):
+if structure_ehr_button.button('Structure EHR (soon)'):
     result = structure_ehr(user_input)
     st.write(result)
 
