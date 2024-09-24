@@ -120,7 +120,7 @@ with st.sidebar.expander("11. 🚑 Find Side Effects (soon)"):
 
 @st.cache_resource
 def load_nlp_model():
-    return spacy.load('Model\NER_Model')
+    return spacy.load(r'Model\NER_Model')
 
 nlp = load_nlp_model()
 
@@ -139,7 +139,7 @@ summarizer_model = load_summarizer_model()
 
 @st.cache_data
 def load_icd10_data():
-    icd10_data= pd.read_csv("Datasets\ICD_Names.csv")
+    icd10_data= pd.read_csv(r"Datasets\ICD_Names.csv")
     icd10_data['diagnosis'] = icd10_data['diagnosis'].str.lower()
     return icd10_data
 
