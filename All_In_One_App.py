@@ -34,7 +34,7 @@ st.markdown(
         flex-direction: column; /* Stack items vertically */
         position: absolute;
         top: 15%;  /* Adjust vertical position to be slightly higher */
-        right: -10%; /* Horizontal center */
+        right: -18%; /* Horizontal center */
         transform: translate(-50%, -40%); /* Adjust to keep the element centered with the new top value */
     }}
     .header img {{
@@ -44,7 +44,7 @@ st.markdown(
         margin-bottom: 5px; /* Space between image and text */
     }}
     .header-text {{
-        font-size: 16px;
+        font-size: 10px;
         font-weight: normal; /* Regular weight for text */
         text-align: center;
     }}
