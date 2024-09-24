@@ -23,7 +23,7 @@ def image_to_base64(image_path):
         return base64.b64encode(img_file.read()).decode('utf-8')
 
 # Display your image and name in the top right corner
-image_path = r"C:\Users\mas082\OneDrive - UiT Office 365\Desktop\Introduce_Your_Self\cartoon.JPG"
+image_path = "cartoon.JPG"
 
 image_base64 = image_to_base64(image_path)
 st.markdown(
