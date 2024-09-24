@@ -347,7 +347,7 @@ def structure_ehr(text):
     st.write("This function is not yet implemented.")
     return
 
-st.title("EHR Text Processing 📋 (Demo)")
+st.title("EHR Text Processing 📋 (Experimental)")
 user_input = st.text_area("Paste the EHR text here")
 
 st.write("Select the entity type:")
