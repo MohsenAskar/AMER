@@ -17,14 +17,11 @@ import textwrap
 
 st.set_page_config(layout='wide')
 
-# Function to convert image to base64
 def image_to_base64(image_path):
     with open(image_path, 'rb') as img_file:
         return base64.b64encode(img_file.read()).decode('utf-8')
 
-# Display your image and name in the top right corner
 image_path = "cartoon.JPG"
-
 image_base64 = image_to_base64(image_path)
 st.markdown(
     f"""
@@ -60,8 +57,6 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# Webapp description
-# In the sidebar
 st.sidebar.title("Modules Description")
 
 with st.sidebar.expander("1. 💊 Recognize Entities"):
@@ -112,7 +107,7 @@ with st.sidebar.expander("9. 📝 EHR Summarizer"):
     - Summarizes the patient records to 50% of the original text.
     """)
 
-with st.sidebar.expander("10. 🏥 Structure EHR"):
+with st.sidebar.expander("10. 🏥 Structure EHR (soon)"):
     st.write("""
     - Divides the EHR into episodes of hospital admissions.
     - Extracts the most relevant information from each episode.
@@ -123,10 +118,9 @@ with st.sidebar.expander("11. 🚑 Find Side Effects (soon)"):
     - Identifies potential side effects in the text.
     """)
 
-# Cached model loading functions
 @st.cache_resource
 def load_nlp_model():
-    return spacy.load(r'C:\Users\mas082\OneDrive - UiT Office 365\Desktop\VS_Code\NLP\Train_Norsk_Medical_NER\NER_Model')
+    return spacy.load('Model\NER_Model')
 
 nlp = load_nlp_model()
 
@@ -142,30 +136,27 @@ def load_summarizer_model():
 
 summarizer_model = load_summarizer_model()
 
-# Cached data loading functions
+
 @st.cache_data
 def load_icd10_data():
-    icd10_data= pd.read_csv(r"C:\Users\mas082\OneDrive - UiT Office 365\Desktop\ICD codes\ICD_Names.csv")
-    # Ensure 'diagnosis' column is lowercase
+    icd10_data= pd.read_csv("Datasets\ICD_Names.csv")
     icd10_data['diagnosis'] = icd10_data['diagnosis'].str.lower()
     return icd10_data
 
 @st.cache_data
 def load_atc_data():
-    return pd.read_csv(r'C:\Users\mas082\OneDrive - UiT Office 365\Desktop\VS_Code\Extract_From_XML\ATC_Injector.csv')  
+    return pd.read_csv(r'Datasets\ATC_Injector.csv')  
 
 @st.cache_data
 def load_ddi_data():
-    return pd.read_csv(r'C:\Users\mas082\OneDrive - UiT Office 365\Desktop\VS_Code\NLP\NER_Applications\Datasets\DDIs_2_Columns.csv')  
+    return pd.read_csv(r'Datasets\DDIs_2_Columns.csv')  
 
 @st.cache_data
 def load_renal_data():
-    return pd.read_csv(r"C:\Users\mas082\OneDrive - UiT Office 365\Desktop\VS_Code\NLP\NER_Applications\Datasets\Drug_Dose_In_Renal_Impairment_To_Use.csv")  
+    return pd.read_csv(r"Datasets\Drug_Dose_In_Renal_Impairment_To_Use.csv")  
 
-# Initialize Faker instance
 fake = Faker()
 
-# Load translators
 @st.cache_resource
 def load_translators():
     translator_to_english = Translator(from_lang="no", to_lang="en")
@@ -174,7 +165,6 @@ def load_translators():
 
 translator_to_english, translator_to_norwegian = load_translators()
 
-# Define functions
 def recognize_entities(text, entity_types):
     doc = nlp(text)
     entities = []
@@ -209,7 +199,6 @@ def correct_icd_codes(text, icd10_data):
 def summarize_text(text, summary_proportion=0.5):
     if text:
         try:
-            # Translate Norwegian text to English in chunks
             translated_text_parts = []
             for piece in textwrap.wrap(text, 500):
                 translated_piece = translator_to_english.translate(piece)
@@ -220,7 +209,6 @@ def summarize_text(text, summary_proportion=0.5):
             return
 
         try:
-            # Perform summarization on the English text
             summary_english = summarizer_model(translated_text, min_length=60, max_length=500)
             if isinstance(summary_english, list):
                 summary_english = " ".join(summary_english)
@@ -229,7 +217,6 @@ def summarize_text(text, summary_proportion=0.5):
             return
 
         try:
-            # Translate English summary back to Norwegian in chunks
             summary_norwegian_parts = []
             for piece in textwrap.wrap(summary_english, 500):
                 translated_piece = translator_to_norwegian.translate(piece)
@@ -360,11 +347,9 @@ def structure_ehr(text):
     st.write("This function is not yet implemented.")
     return
 
-# Main app logic
 st.title("EHR Text Processing 📋 (Demo)")
 user_input = st.text_area("Paste the EHR text here")
 
-# Create a checkbox group for the user to select which entity types to recognize
 st.write("Select the entity type:")
 all_checkbox_col, disease_checkbox_col, substance_checkbox_col, physiology_checkbox_col = st.columns(4)
 procedure_checkbox_col, anatomi_checkbox_col, microorganism_checkbox_col = st.columns(3)
@@ -407,7 +392,6 @@ else:
     if substance_checkbox:
         entity_types.append("SUBSTANCE")
 
-# Buttons for different actions
 if st.button('Recognize Entities'):
     entities, doc = recognize_entities(user_input, entity_types)
     st.write("Number of recognized entities:", len(entities))
