@@ -120,7 +120,7 @@ with st.sidebar.expander("11. 🚑 Find Side Effects (soon)"):
 
 @st.cache_resource
 def load_nlp_model():
-    return spacy.load(r'Model\NER_Model')
+    return spacy.load(r'Model\NER_Model\')
 
 nlp = load_nlp_model()
 
