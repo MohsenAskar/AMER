@@ -149,7 +149,7 @@ def load_atc_data():
 
 @st.cache_data
 def load_ddi_data():
-    return pd.read_csv(r'Datasets\DDIs_2_Columns.csv')  
+    return pd.read_csv('Datasets/DDIs_2_Columns.csv')  
 
 @st.cache_data
 def load_renal_data():
