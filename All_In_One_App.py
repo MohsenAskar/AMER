@@ -38,9 +38,9 @@ st.markdown(
         transform: translate(-50%, -40%); /* Adjust to keep the element centered with the new top value */
     }}
     .header img {{
-        border-radius: 50%;
-        width: 50px;
-        height: 50px;
+        border-radius: 40%;
+        width: 40px;
+        height: 40px;
         margin-bottom: 5px; /* Space between image and text */
     }}
     .header-text {{
