@@ -351,7 +351,7 @@ st.title("AMER tool📋(Experimental)")
 st.markdown(
     """
     <p style='font-size:12px; color:gray'>
-        Automatic Medical Entities Recognizer (AMER) tool offers several functionalities to process medical Norwegian text 
+        Automatic Medical Entities Recognizer (AMER) tool offers several functionalities to process Norwegian medical text 
         using NLP techniques, see the sidebar modules for desription.
     </p>
     """,
