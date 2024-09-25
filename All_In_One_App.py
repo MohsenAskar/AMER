@@ -30,7 +30,7 @@ st.markdown(
         display: flex;
         justify-content: center; /* Center horizontally */
         align-items: center; /* Center vertically */
-        padding: 14px;
+        padding: 12px;
         flex-direction: column; /* Stack items vertically */
         position: absolute;
         top: 0%;  /* Adjust vertical position to be slightly higher */
@@ -350,7 +350,7 @@ def structure_ehr(text):
 st.title("AMER tool📋(Experimental)")
 st.markdown(
     """
-    <p style='font-size:10px; color:gray'>
+    <p style='font-size:12px; color:gray'>
         Automatic Medical Entities Recognizer (AMER) tool offers several functionalities to process medical Norwegian text 
         using NLP techniques, see the sidebar modules for desription.
     </p>
