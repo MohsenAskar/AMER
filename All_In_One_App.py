@@ -30,7 +30,7 @@ st.markdown(
         display: flex;
         justify-content: center; /* Center horizontally */
         align-items: center; /* Center vertically */
-        padding: 10px;
+        padding: 12px;
         flex-direction: column; /* Stack items vertically */
         position: absolute;
         top: 0%;  /* Adjust vertical position to be slightly higher */
