@@ -75,7 +75,7 @@ with st.sidebar.expander("3. 💉 Inject ATC Codes"):
     - Inserts the correct ATC codes to the substances and drug names in the text.
     """)
 
-with st.sidebar.expander("4. 🕵️ Deidentify Patient's Information"):
+with st.sidebar.expander("4. 🕵️ Deidentify Patient's Information (Demo)"):
     st.write("""
     - Identifies patient's sensitive info.
     - Inserts fake names, dates, etc. in the patient records.
