@@ -347,7 +347,16 @@ def structure_ehr(text):
     st.write("This function is not yet implemented.")
     return
 
-st.title("EHR Text Processing 📋 (Experimental)")
+st.title("AMER tool📋(Experimental)")
+st.markdown(
+    """
+    <p style='font-size:8px; color:gray'>
+        Automatic Medical Entities Recognizer (AMER) tool offers several functionalities to process medical Norwegian text 
+        using NLP techniques, see the sidebar modules for desription.
+    </p>
+    """,
+    unsafe_allow_html=True
+)
 user_input = st.text_area("Paste the EHR text here")
 
 st.write("Select the entity type:")
