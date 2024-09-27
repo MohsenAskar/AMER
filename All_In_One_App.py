@@ -467,11 +467,11 @@ if correct_renal_dose_button.button('Correct Dose Renal'):
     else:
         st.write("No drugs detected in the text.")
 
-if summarize_ehr_button.button('Summarize EHR'):
+if summarize_ehr_button.button('Summarize text'):
     result = summarize_text(user_input)
     st.write(result)
 
-if structure_ehr_button.button('Structure EHR (soon)'):
+if structure_ehr_button.button('Structure text (soon)'):
     result = structure_ehr(user_input)
     st.write(result)
 
