@@ -13,6 +13,10 @@ import base64
 import requests
 import openpyxl
 import textwrap 
+import requests
+import json
+from datetime import datetime
+
 
 
 st.set_page_config(layout='wide')
@@ -478,3 +482,107 @@ if structure_ehr_button.button('Structure text (soon)'):
 if find_side_effects_button:
     result = find_sideeffects(user_input)
     st.write(result) 
+
+st.markdown("---")
+
+# Function to get and update the visitor count using a cloud database
+def track_visitor():
+    if 'firebase_option' == True:
+        import firebase_admin
+        from firebase_admin import credentials, db
+        
+        # Initialize Firebase (do this only once)
+        if 'firebase_initialized' not in st.session_state:
+            try:
+                cred = credentials.Certificate("your-firebase-credentials.json")
+                firebase_admin.initialize_app(cred, {
+                    'databaseURL': 'https://your-project.firebaseio.com/'
+                })
+                st.session_state.firebase_initialized = True
+            except Exception as e:
+                st.error(f"Error initializing Firebase: {e}")
+                return 0
+        
+        # Increment the counter
+        try:
+            ref = db.reference('visitor_counter')
+            current_count = ref.get() or 0
+            new_count = current_count + 1
+            ref.set(new_count)
+            return new_count
+        except Exception as e:
+            st.error(f"Error updating counter: {e}")
+            return 0
+    
+    elif 'streamlit_cloud_option' == True:
+        if 'count' not in st.session_state:
+            # This works only on Streamlit Cloud with secrets management
+            try:
+                # Get current count
+                response = requests.get(
+                    "https://kvdb.io/YOUR_BUCKET_ID/visitor_count",
+                    headers={"Content-Type": "application/json"}
+                )
+                current_count = int(response.text) if response.text else 0
+                
+                # Update count
+                new_count = current_count + 1
+                requests.post(
+                    "https://kvdb.io/YOUR_BUCKET_ID/visitor_count",
+                    data=str(new_count),
+                    headers={"Content-Type": "text/plain"}
+                )
+                st.session_state.count = new_count
+                return new_count
+            except Exception as e:
+                st.error(f"Error with KV store: {e}")
+                return 0
+        return st.session_state.count
+    
+    else:
+        if 'count' not in st.session_state:
+            try:
+                with open('visitor_count.txt', 'r') as f:
+                    current_count = int(f.read().strip())
+            except FileNotFoundError:
+                current_count = 0
+            
+            new_count = current_count + 1
+            
+            try:
+                with open('visitor_count.txt', 'w') as f:
+                    f.write(str(new_count))
+                st.session_state.count = new_count
+            except Exception as e:
+                st.error(f"Error saving count: {e}")
+                st.session_state.count = current_count + 1
+                
+        return st.session_state.count
+
+# Only increment the counter once per session
+if 'visitor_counted' not in st.session_state:
+    count = track_visitor()
+    st.session_state.visitor_counted = True
+else:
+    count = st.session_state.get('count', 0)
+
+# Display the counter with nice styling
+st.markdown(
+    f"""
+    <div style="text-align: center; padding: 10px; margin-top: 30px; 
+         border-top: 1px solid #f0f0f0; color: #888;">
+        <span style="font-size: 14px;">👥 Total Visitors: {count}</span>
+    </div>
+    """, 
+    unsafe_allow_html=True
+)
+
+today = datetime.now().strftime("%B %d, %Y")
+st.markdown(
+    f"""
+    <div style="text-align: center; color: #888; font-size: 12px; margin-top: 5px;">
+        {today}
+    </div>
+    """,
+    unsafe_allow_html=True
+)
