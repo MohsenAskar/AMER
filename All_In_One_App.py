@@ -19,7 +19,7 @@ from datetime import datetime
 
 
 
-st.set_page_config(layout='wide')
+st.set_page_config(layout='wide', page_icon="🧑🏻‍⚕️")
 
 def image_to_base64(image_path):
     with open(image_path, 'rb') as img_file:
