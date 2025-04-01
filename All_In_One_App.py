@@ -21,7 +21,7 @@ from datetime import datetime
 
 st.set_page_config(
     page_title="AMER tool",
-    page_icon="🧑🏻‍⚕️",
+    page_icon="👨‍⚕️",
     layout="wide"
 )
 def image_to_base64(image_path):
