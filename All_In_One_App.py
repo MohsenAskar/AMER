@@ -19,8 +19,11 @@ from datetime import datetime
 
 
 
-st.set_page_config(layout='wide', page_icon="🧑🏻‍⚕️")
-
+st.set_page_config(
+    page_title="AMER tool",
+    page_icon="🧑🏻‍⚕️",
+    layout="wide"
+)
 def image_to_base64(image_path):
     with open(image_path, 'rb') as img_file:
         return base64.b64encode(img_file.read()).decode('utf-8')
