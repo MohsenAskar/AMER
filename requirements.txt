@@ -6,7 +6,6 @@ Faker==19.6.2
 networkx==3.1
 matplotlib==3.8.0
 translate==3.6.1
-summarizer==0.0.7
 openpyxl==3.1.2
 requests==2.31.0
 torch==2.0.1
